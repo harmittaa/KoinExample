@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         if (preferences.getShouldShowFragment()) {
-            supportFragmentManager.beginTransaction().replace(R.id.root, exampleFragment, "forecast").commit()
+            supportFragmentManager.beginTransaction().replace(R.id.root, exampleFragment, "weather").commit()
         }
     }
 }

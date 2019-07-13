@@ -1,9 +1,12 @@
 package com.github.harmittaa.koinexample.model
 
+import com.google.gson.annotations.SerializedName
+
 data class Weather(
-    val main: WeatherData
+    @SerializedName("main") val temp: TempData
 )
 
-data class WeatherData(
-    val temp: Double
+data class TempData(
+    val temp: Double,
+    val humidity: Int
 )
