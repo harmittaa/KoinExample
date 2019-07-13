@@ -4,6 +4,6 @@ import com.github.harmittaa.koinexample.model.Weather
 import retrofit2.http.GET
 
 interface WeatherApi {
-    @GET("weather?lat=60.72&lon=23.67&units=metric")
+    @GET("weather?q=Helsinki&units=metric")
     suspend fun getForecast(): Weather
 }

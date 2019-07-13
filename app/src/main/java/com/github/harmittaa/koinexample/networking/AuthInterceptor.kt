@@ -7,7 +7,7 @@ class AuthInterceptor() : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         var req = chain.request()
         // DONT INCLUDE API KEYS IN YOUR SOURCE CODE
-        val url = req.url().newBuilder().addQueryParameter("APPID", "your_key_here").build()
+        val url = req.url().newBuilder().addQueryParameter("APPID", "your_key").build()
         req = req.newBuilder().url(url).build()
         return chain.proceed(req)
     }

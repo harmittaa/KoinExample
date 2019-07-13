@@ -25,8 +25,7 @@ class ExampleFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private val observer = Observer<Weather> {
-        Log.d("ExampleFragment", "Data: $it")
-        binding.fragmentInfo.text = "Temperature is ${it.temp.temp}"
+        binding.fragmentInfo.text = "Temperature at ${it.name} is ${it.temp.temp} celcius"
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
