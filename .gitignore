@@ -111,4 +111,4 @@ Temporary Items
 
 # store the API key here
 gradle.properties
-
+./gradle.properties
