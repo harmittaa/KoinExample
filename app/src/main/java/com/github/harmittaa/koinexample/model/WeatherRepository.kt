@@ -1,19 +1,21 @@
 package com.github.harmittaa.koinexample.model
 
+import com.github.harmittaa.koinexample.networking.Resource
+import com.github.harmittaa.koinexample.networking.ResponseHandler
 import com.github.harmittaa.koinexample.networking.WeatherApi
 import org.koin.dsl.module
-import java.lang.Exception
+import retrofit2.HttpException
 
 val forecastModule = module {
-    factory { WeatherRepository(get()) }
+    factory { WeatherRepository(get(), get()) }
 }
 
-class WeatherRepository(private val weatherApi: WeatherApi) {
-    suspend fun getWeather(): Weather {
+class WeatherRepository(private val weatherApi: WeatherApi, private val responseHandler: ResponseHandler) {
+    suspend fun getWeather(): Resource<Weather> {
         return try {
-            weatherApi.getForecast().body()!!
-        } catch (e: Exception) {
-            Weather(TempData(1.0, 2), "test")
+            responseHandler.handleSuccess(weatherApi.getForecast())
+        } catch (e: HttpException) {
+            responseHandler.handleException(e.code())
         }
     }
 }

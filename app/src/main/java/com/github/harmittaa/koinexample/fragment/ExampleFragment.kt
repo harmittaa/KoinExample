@@ -10,7 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.github.harmittaa.koinexample.R
 import com.github.harmittaa.koinexample.databinding.FragmentViewBinding
+import com.github.harmittaa.koinexample.model.TempData
 import com.github.harmittaa.koinexample.model.Weather
+import com.github.harmittaa.koinexample.networking.Resource
+import com.github.harmittaa.koinexample.networking.Status
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.dsl.module
 
@@ -22,9 +25,27 @@ class ExampleFragment : Fragment() {
     private val exampleViewModel: ExampleViewModel by viewModel()
     private lateinit var binding: FragmentViewBinding
 
+    private val observer = Observer<Resource<Weather>> {
+        when (it.status) {
+            Status.SUCCESS -> updateTemperatureText(it.data!!.name, it.data.temp)
+            Status.ERROR -> showError(it.message!!)
+            Status.LOADING -> showLoading()
+        }
+    }
+
     @SuppressLint("SetTextI18n")
-    private val observer = Observer<Weather> {
-        binding.fragmentInfo.text = "Temperature at ${it.name} is ${it.temp.temp} celcius"
+    private fun showLoading() {
+        binding.fragmentInfo.text = "Loading..."
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun showError(message: String) {
+        binding.fragmentInfo.text = "Something went wrong: $message"
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun updateTemperatureText(name: String, temp: TempData) {
+        binding.fragmentInfo.text = "Temperature at ${name} is ${temp.temp} celsius"
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
