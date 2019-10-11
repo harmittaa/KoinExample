@@ -109,3 +109,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+# store the API key here
+gradle.properties
+
