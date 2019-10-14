@@ -40,10 +40,9 @@ class ExampleViewModelTest {
     fun setUp() {
         Dispatchers.setMain(mainThreadSurrogate)
         weatherRepository = mock()
-        whenever(weatherRepository.returnFun()).thenReturn("NOT FUN!")
-        /*runBlocking {
+        runBlocking {
             //whenever(weatherRepository.getWeather("Helsinki")).thenReturn(successResource)
-        }*/
+        }
         viewModel = ExampleViewModel(weatherRepository)
         weatherObserver = mock()
         loadingObserver = mock()
@@ -65,11 +64,11 @@ class ExampleViewModelTest {
 
     @Test
     fun `when getWeather is called, then observer is updated`() = runBlocking {
-        /*viewModel.weather.observeForever(weatherObserver)
+        viewModel.weather.observeForever(weatherObserver)
         viewModel.getWeather("Helsinki")
         delay(10)
         verify(weatherRepository, times(1)).getWeather("Helsinki")
         verify(weatherObserver, timeout(50).times(1)).onChanged(Resource.loading(null))
-        verify(weatherObserver, timeout(50).times(1)).onChanged(Resource.success(null))*/
+        verify(weatherObserver, timeout(50).times(1)).onChanged(Resource.success(null))
     }
 }

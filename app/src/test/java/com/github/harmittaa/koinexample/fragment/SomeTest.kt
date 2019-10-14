@@ -21,7 +21,6 @@ class SomeTest {
 
     @Before
     fun setUp() {
-
         var dependencyMock = mock(MyDependency::class.java)
         `when`(dependencyMock.doesSomething()).thenReturn("MOCKED")
         classUnderTest = ClassToTest(dependencyMock)
