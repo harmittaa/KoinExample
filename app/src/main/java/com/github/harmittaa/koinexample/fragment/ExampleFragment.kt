@@ -33,6 +33,18 @@ class ExampleFragment : Fragment() {
         }
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_view, container, false)
+        binding.viewModel = exampleViewModel
+        exampleViewModel.weather.observe(this, observer)
+        return binding.root
+    }
+
     @SuppressLint("SetTextI18n")
     private fun showLoading() {
         binding.fragmentInfo.text = "Loading..."
@@ -46,12 +58,5 @@ class ExampleFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun updateTemperatureText(name: String, temp: TempData) {
         binding.fragmentInfo.text = "Temperature at ${name} is ${temp.temp} celsius"
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        super.onCreateView(inflater, container, savedInstanceState)
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_view, container, false)
-        exampleViewModel.weather.observe(this, observer)
-        return binding.root
     }
 }

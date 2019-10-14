@@ -1,5 +1,6 @@
 package com.github.harmittaa.koinexample.model
 
+import android.util.Log
 import com.github.harmittaa.koinexample.networking.Resource
 import com.github.harmittaa.koinexample.networking.ResponseHandler
 import com.github.harmittaa.koinexample.networking.WeatherApi
@@ -10,10 +11,15 @@ val forecastModule = module {
     factory { WeatherRepository(get(), get()) }
 }
 
-class WeatherRepository(private val weatherApi: WeatherApi, private val responseHandler: ResponseHandler) {
-    suspend fun getWeather(): Resource<Weather> {
+open class WeatherRepository(
+    private val weatherApi: WeatherApi,
+    private val responseHandler: ResponseHandler
+) {
+
+    suspend fun getWeather(location: String): Resource<Weather> {
         return try {
-            responseHandler.handleSuccess(weatherApi.getForecast())
+            val response = weatherApi.getForecast(location, "metric")
+            return responseHandler.handleSuccess(response)
         } catch (e: HttpException) {
             responseHandler.handleException(e.code())
         }

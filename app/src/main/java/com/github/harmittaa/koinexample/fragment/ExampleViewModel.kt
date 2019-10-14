@@ -1,9 +1,6 @@
 package com.github.harmittaa.koinexample.fragment
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import com.github.harmittaa.koinexample.model.Weather
+import androidx.lifecycle.*
 import com.github.harmittaa.koinexample.model.WeatherRepository
 import com.github.harmittaa.koinexample.networking.Resource
 import org.koin.dsl.module
@@ -16,8 +13,16 @@ class ExampleViewModel(
     private val weatherRepo: WeatherRepository
 ) : ViewModel() {
 
-    val weather: LiveData<Resource<Weather>> = liveData {
-        emit(Resource.loading(null))
-        emit(weatherRepo.getWeather())
+    private val location = MutableLiveData<String>()
+
+    fun getWeather(input: String) {
+        location.value = input
+    }
+
+    var weather = location.switchMap { location ->
+        liveData() {
+            emit(Resource.loading(null))
+            emit(weatherRepo.getWeather(location))
+        }
     }
 }

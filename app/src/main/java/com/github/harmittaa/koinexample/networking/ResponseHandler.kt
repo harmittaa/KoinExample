@@ -1,6 +1,6 @@
 package com.github.harmittaa.koinexample.networking
 
-class ResponseHandler {
+open class ResponseHandler {
     fun <T : Any> handleSuccess(data: T): Resource<T> {
         return Resource.success(data)
     }
