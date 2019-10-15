@@ -18,11 +18,11 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.dsl.module
 
 val fragmentModule = module {
-    factory { ExampleFragment() }
+    factory { WeatherFragment() }
 }
 
-class ExampleFragment : Fragment() {
-    private val exampleViewModel: ExampleViewModel by viewModel()
+class WeatherFragment : Fragment() {
+    private val exampleViewModel: WeatherViewModel by viewModel()
     private lateinit var binding: FragmentViewBinding
 
     private val observer = Observer<Resource<Weather>> {
@@ -47,16 +47,16 @@ class ExampleFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun showLoading() {
-        binding.fragmentInfo.text = "Loading..."
+        binding.weatherInfo.text = "Loading..."
     }
 
     @SuppressLint("SetTextI18n")
     private fun showError(message: String) {
-        binding.fragmentInfo.text = "Something went wrong: $message"
+        binding.weatherInfo.text = "Something went wrong: $message"
     }
 
     @SuppressLint("SetTextI18n")
     private fun updateTemperatureText(name: String, temp: TempData) {
-        binding.fragmentInfo.text = "Temperature at ${name} is ${temp.temp} celsius"
+        binding.weatherInfo.text = "Temperature at ${name} is ${temp.temp} celsius"
     }
 }

@@ -20,8 +20,8 @@ import org.junit.runners.JUnit4
 
 
 @RunWith(JUnit4::class)
-class ExampleViewModelTest {
-    private lateinit var viewModel: ExampleViewModel
+class WeatherViewModelTest {
+    private lateinit var viewModel: WeatherViewModel
     private lateinit var weatherRepository: WeatherRepository
     private lateinit var weatherObserver: Observer<Resource<Weather>>
     private lateinit var loadingObserver: Observer<Boolean>
@@ -47,7 +47,7 @@ class ExampleViewModelTest {
             whenever(weatherRepository.getWeather(validLocation)).thenReturn(successResource)
             whenever(weatherRepository.getWeather(invalidLocation)).thenReturn(errorResource)
         }
-        viewModel = ExampleViewModel(weatherRepository)
+        viewModel = WeatherViewModel(weatherRepository)
         weatherObserver = mock()
         loadingObserver = mock()
     }

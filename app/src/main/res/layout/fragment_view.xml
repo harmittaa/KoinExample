@@ -7,7 +7,7 @@
 
         <variable
                 name="viewModel"
-                type="com.github.harmittaa.koinexample.fragment.ExampleViewModel" />
+                type="com.github.harmittaa.koinexample.fragment.WeatherViewModel" />
     </data>
 
 
@@ -16,7 +16,7 @@
             android:layout_height="match_parent">
 
         <TextView
-                android:id="@+id/fragment_info"
+                android:id="@+id/weather_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:onClick="@{() -> viewModel.getWeather(locationEt.getText().toString())}"
                 android:text="Get weather!"
-                app:layout_constraintBottom_toTopOf="@+id/fragment_info"
+                app:layout_constraintBottom_toTopOf="@+id/weather_info"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 

@@ -6,10 +6,10 @@ import com.github.harmittaa.koinexample.networking.Resource
 import org.koin.dsl.module
 
 val viewModelModule = module {
-    factory { ExampleViewModel(get()) }
+    factory { WeatherViewModel(get()) }
 }
 
-class ExampleViewModel(
+class WeatherViewModel(
     private val weatherRepo: WeatherRepository
 ) : ViewModel() {
 
