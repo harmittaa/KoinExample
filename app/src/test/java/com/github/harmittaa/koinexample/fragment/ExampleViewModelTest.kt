@@ -26,7 +26,9 @@ class ExampleViewModelTest {
     private lateinit var weatherObserver: Observer<Resource<Weather>>
     private lateinit var loadingObserver: Observer<Boolean>
     private val validLocation = "Helsinki"
+    private val invalidLocation = "Helsinkii"
     private val successResource = Resource.success(Weather(TempData(1.0, 1), "test"))
+    private val errorResource = Resource.error("Unauthorised", null)
 
     @Rule
     @JvmField
@@ -43,6 +45,7 @@ class ExampleViewModelTest {
         weatherRepository = mock()
         runBlocking {
             whenever(weatherRepository.getWeather(validLocation)).thenReturn(successResource)
+            whenever(weatherRepository.getWeather(invalidLocation)).thenReturn(errorResource)
         }
         viewModel = ExampleViewModel(weatherRepository)
         weatherObserver = mock()
@@ -58,12 +61,22 @@ class ExampleViewModelTest {
     }
 
     @Test
-    fun `when getWeather is called, then observer is updated`() = runBlocking {
+    fun `when getWeather is called with valid location, then observer is updated with success`() = runBlocking {
         viewModel.weather.observeForever(weatherObserver)
         viewModel.getWeather(validLocation)
         delay(10)
         verify(weatherRepository, times(1)).getWeather(validLocation)
         verify(weatherObserver, timeout(50).times(1)).onChanged(Resource.loading(null))
         verify(weatherObserver, timeout(50).times(1)).onChanged(successResource)
+    }
+
+    @Test
+    fun `when getWeather is called with invalid location, then observer is updated with failure`() = runBlocking {
+        viewModel.weather.observeForever(weatherObserver)
+        viewModel.getWeather(invalidLocation)
+        delay(10)
+        verify(weatherRepository, times(1)).getWeather(invalidLocation)
+        verify(weatherObserver, timeout(50).times(1)).onChanged(Resource.loading(null))
+        verify(weatherObserver, timeout(50).times(1)).onChanged(errorResource)
     }
 }
