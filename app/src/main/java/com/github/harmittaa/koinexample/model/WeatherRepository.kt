@@ -1,6 +1,5 @@
 package com.github.harmittaa.koinexample.model
 
-import android.util.Log
 import com.github.harmittaa.koinexample.networking.Resource
 import com.github.harmittaa.koinexample.networking.ResponseHandler
 import com.github.harmittaa.koinexample.networking.WeatherApi

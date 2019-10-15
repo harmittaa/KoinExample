@@ -25,6 +25,7 @@ class ExampleViewModelTest {
     private lateinit var weatherRepository: WeatherRepository
     private lateinit var weatherObserver: Observer<Resource<Weather>>
     private lateinit var loadingObserver: Observer<Boolean>
+    private val validLocation = "Helsinki"
     private val successResource = Resource.success(Weather(TempData(1.0, 1), "test"))
 
     @Rule
@@ -41,7 +42,7 @@ class ExampleViewModelTest {
         Dispatchers.setMain(mainThreadSurrogate)
         weatherRepository = mock()
         runBlocking {
-            //whenever(weatherRepository.getWeather("Helsinki")).thenReturn(successResource)
+            whenever(weatherRepository.getWeather(validLocation)).thenReturn(successResource)
         }
         viewModel = ExampleViewModel(weatherRepository)
         weatherObserver = mock()
@@ -56,19 +57,13 @@ class ExampleViewModelTest {
         mainThreadSurrogate.close()
     }
 
-    @After
-    fun validate() {
-        validateMockitoUsage()
-    }
-
-
     @Test
     fun `when getWeather is called, then observer is updated`() = runBlocking {
         viewModel.weather.observeForever(weatherObserver)
-        viewModel.getWeather("Helsinki")
+        viewModel.getWeather(validLocation)
         delay(10)
-        verify(weatherRepository, times(1)).getWeather("Helsinki")
+        verify(weatherRepository, times(1)).getWeather(validLocation)
         verify(weatherObserver, timeout(50).times(1)).onChanged(Resource.loading(null))
-        verify(weatherObserver, timeout(50).times(1)).onChanged(Resource.success(null))
+        verify(weatherObserver, timeout(50).times(1)).onChanged(successResource)
     }
 }
