@@ -4,11 +4,11 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
         applicationId "com.github.harmittaa.koinexample"
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -16,11 +16,28 @@ android {
             enabled = true
         }
     }
+
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
     buildTypes {
         debug {
-            minifyEnabled false
-            buildConfigField "String", "API_URL", "\"https://api.openweathermap.org/data/2.5/\""
-            debuggable true
+            try {
+                minifyEnabled false
+                buildConfigField "String", "API_URL", "\"https://api.openweathermap.org/data/2.5/\""
+                buildConfigField "String", "API_KEY", openweathermap_key
+                debuggable true
+            } catch (e) {
+                // add gradle.properties file with the following property:
+                // openweathermap_key = "YOUR_API_KEY"
+                throw e
+            }
         }
         release {
             minifyEnabled false
@@ -32,17 +49,22 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.core:core-ktx:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-    def lifecycle_version = "2.2.0-alpha02"
+    def lifecycle_version = "2.2.0-beta01"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
-    implementation "androidx.fragment:fragment-ktx:1.2.0-alpha01"
+
+    def fragment_version = "1.2.0-beta01"
+    implementation "androidx.fragment:fragment-ktx:$fragment_version"
+
+    def core_version = "1.1.0"
+    implementation "androidx.appcompat:appcompat:$core_version"
+    implementation "androidx.core:core-ktx:$core_version"
+
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
 
     def koin_version = "2.0.1"
@@ -55,4 +77,15 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
 
+    def okhttp_version = "4.2.2"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+
+    def mockito_version = "3.1.0"
+    testImplementation "org.mockito:mockito-core:$mockito_version"
+    testImplementation "org.mockito:mockito-inline:$mockito_version"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
+
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'android.arch.core:core-testing:2.1.0'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.2'
 }
