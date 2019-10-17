@@ -63,9 +63,9 @@ class WeatherViewModelTest {
         viewModel.weather.observeForever(weatherObserver)
         viewModel.getWeather(validLocation)
         delay(10)
-        verify(weatherRepository, times(1)).getWeather(validLocation)
-        verify(weatherObserver, timeout(50).times(1)).onChanged(Resource.loading(null))
-        verify(weatherObserver, timeout(50).times(1)).onChanged(successResource)
+        verify(weatherRepository).getWeather(validLocation)
+        verify(weatherObserver, timeout(50)).onChanged(Resource.loading(null))
+        verify(weatherObserver, timeout(50)).onChanged(successResource)
     }
 
     @Test
@@ -73,8 +73,8 @@ class WeatherViewModelTest {
         viewModel.weather.observeForever(weatherObserver)
         viewModel.getWeather(invalidLocation)
         delay(10)
-        verify(weatherRepository, times(1)).getWeather(invalidLocation)
-        verify(weatherObserver, timeout(50).times(1)).onChanged(Resource.loading(null))
-        verify(weatherObserver, timeout(50).times(1)).onChanged(errorResource)
+        verify(weatherRepository).getWeather(invalidLocation)
+        verify(weatherObserver, timeout(50)).onChanged(Resource.loading(null))
+        verify(weatherObserver, timeout(50)).onChanged(errorResource)
     }
 }
