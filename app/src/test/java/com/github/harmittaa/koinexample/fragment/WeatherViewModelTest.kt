@@ -24,7 +24,6 @@ class WeatherViewModelTest {
     private lateinit var viewModel: WeatherViewModel
     private lateinit var weatherRepository: WeatherRepository
     private lateinit var weatherObserver: Observer<Resource<Weather>>
-    private lateinit var loadingObserver: Observer<Boolean>
     private val validLocation = "Helsinki"
     private val invalidLocation = "Helsinkii"
     private val successResource = Resource.success(Weather(TempData(1.0, 1), "test"))
@@ -49,7 +48,6 @@ class WeatherViewModelTest {
         }
         viewModel = WeatherViewModel(weatherRepository)
         weatherObserver = mock()
-        loadingObserver = mock()
     }
 
     @ObsoleteCoroutinesApi

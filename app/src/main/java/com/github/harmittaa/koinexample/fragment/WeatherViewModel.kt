@@ -20,7 +20,7 @@ class WeatherViewModel(
     }
 
     var weather = location.switchMap { location ->
-        liveData() {
+        liveData {
             emit(Resource.loading(null))
             emit(weatherRepo.getWeather(location))
         }
