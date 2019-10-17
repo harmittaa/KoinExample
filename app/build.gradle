@@ -31,11 +31,11 @@ android {
             try {
                 minifyEnabled false
                 buildConfigField "String", "API_URL", "\"https://api.openweathermap.org/data/2.5/\""
-                buildConfigField "String", "API_KEY", openweathermap_ley
+                buildConfigField "String", "API_KEY", openweathermap_key
                 debuggable true
             } catch (e) {
                 // add gradle.properties file with the following property:
-                // openweathermap_ley = "YOUR_API_KEY"
+                // openweathermap_key = "YOUR_API_KEY"
                 throw e
             }
         }
