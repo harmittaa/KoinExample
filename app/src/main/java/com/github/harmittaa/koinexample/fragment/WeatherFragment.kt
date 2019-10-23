@@ -52,7 +52,7 @@ class WeatherFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun showError(message: String) {
-        binding.weatherInfo.text = "Something went wrong: $message"
+        binding.weatherInfo.text = "Error: $message"
     }
 
     @SuppressLint("SetTextI18n")

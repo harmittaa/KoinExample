@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.github.harmittaa.koinexample.model.TempData
 import com.github.harmittaa.koinexample.model.Weather
-import com.github.harmittaa.koinexample.model.WeatherRepository
+import com.github.harmittaa.koinexample.repository.WeatherRepository
 import com.github.harmittaa.koinexample.networking.Resource
 import com.nhaarman.mockitokotlin2.*
 import kotlinx.coroutines.*
