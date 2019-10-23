@@ -73,7 +73,7 @@ dependencies {
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
     implementation "org.koin:koin-core:$koin_version"
 
-    def retrofit_version = "2.6.0"
+    def retrofit_version = "2.6.2"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
 

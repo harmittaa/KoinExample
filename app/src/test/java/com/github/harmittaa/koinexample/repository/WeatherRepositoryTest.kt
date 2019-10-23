@@ -1,5 +1,7 @@
-package com.github.harmittaa.koinexample.model
+package com.github.harmittaa.koinexample.repository
 
+import com.github.harmittaa.koinexample.model.TempData
+import com.github.harmittaa.koinexample.model.Weather
 import com.github.harmittaa.koinexample.networking.Resource
 import com.github.harmittaa.koinexample.networking.ResponseHandler
 import com.github.harmittaa.koinexample.networking.WeatherApi
@@ -37,7 +39,10 @@ class WeatherRepositoryTest {
             whenever(weatherApi.getForecast(eq(invalidLocation), anyString())).thenThrow(mockException)
             whenever(weatherApi.getForecast(eq(validLocation), anyString())).thenReturn(weather)
         }
-        repository = WeatherRepository(weatherApi, responseHandler)
+        repository = WeatherRepository(
+            weatherApi,
+            responseHandler
+        )
     }
 
     @Test

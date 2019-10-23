@@ -3,7 +3,7 @@ package com.github.harmittaa.koinexample.application
 import android.app.Application
 import com.github.harmittaa.koinexample.fragment.fragmentModule
 import com.github.harmittaa.koinexample.fragment.viewModelModule
-import com.github.harmittaa.koinexample.model.forecastModule
+import com.github.harmittaa.koinexample.repository.forecastModule
 import com.github.harmittaa.koinexample.networking.networkModule
 import com.github.harmittaa.koinexample.persistence.prefModule
 import org.koin.android.ext.koin.androidContext
@@ -17,7 +17,9 @@ class KoinExampleApplication : Application() {
         startKoin {
             androidLogger()
             androidContext(this@KoinExampleApplication)
-            modules(listOf(prefModule, fragmentModule, viewModelModule, networkModule, forecastModule))
+            modules(listOf(prefModule, fragmentModule, viewModelModule, networkModule,
+                forecastModule
+            ))
         }
     }
 }

@@ -1,7 +1,7 @@
 package com.github.harmittaa.koinexample.fragment
 
 import androidx.lifecycle.*
-import com.github.harmittaa.koinexample.model.WeatherRepository
+import com.github.harmittaa.koinexample.repository.WeatherRepository
 import com.github.harmittaa.koinexample.networking.Resource
 import org.koin.dsl.module
 
