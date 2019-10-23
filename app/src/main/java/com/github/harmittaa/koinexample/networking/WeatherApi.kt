@@ -11,9 +11,4 @@ interface WeatherApi {
     @GET("weather")
     suspend fun getForecast(@Query("q")location: String,
                             @Query("units") unit: String): Weather
-
-    @GET("weather")
-    suspend fun getForecastResponse(@Query("q")location: String,
-                            @Query("units") unit: String): Response<Weather>
-
 }
