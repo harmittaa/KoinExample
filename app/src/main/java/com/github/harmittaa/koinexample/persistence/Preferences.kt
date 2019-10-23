@@ -6,10 +6,10 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 val prefModule = module {
-    single { ExamplePreferences(androidContext()) }
+    single { Preferences(androidContext()) }
 }
 
-class ExamplePreferences(context: Context) {
+class Preferences(context: Context) {
     private val preferences: SharedPreferences = context.getSharedPreferences("prefs", Context.MODE_PRIVATE)
     private val showFragmentKey = "showFragment"
     private val fragmentContentKey = "fragmentContent"

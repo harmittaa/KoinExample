@@ -3,13 +3,13 @@ package com.github.harmittaa.koinexample.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.github.harmittaa.koinexample.R
-import com.github.harmittaa.koinexample.fragment.ExampleFragment
-import com.github.harmittaa.koinexample.persistence.ExamplePreferences
+import com.github.harmittaa.koinexample.fragment.WeatherFragment
+import com.github.harmittaa.koinexample.persistence.Preferences
 import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
-    private val preferences: ExamplePreferences by inject()
-    private val exampleFragment: ExampleFragment by inject()
+    private val preferences: Preferences by inject()
+    private val exampleFragment: WeatherFragment by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -107,8 +107,5 @@ Icon
 .AppleDesktop
 Network Trash Folder
 Temporary Items
+<<<<<<< HEAD
 .apdisk
-
-# store the API key here
-gradle.properties
-./gradle.properties
