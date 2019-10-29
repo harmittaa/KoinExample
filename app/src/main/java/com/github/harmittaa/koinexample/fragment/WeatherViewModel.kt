@@ -3,6 +3,7 @@ package com.github.harmittaa.koinexample.fragment
 import androidx.lifecycle.*
 import com.github.harmittaa.koinexample.repository.WeatherRepository
 import com.github.harmittaa.koinexample.networking.Resource
+import kotlinx.coroutines.Dispatchers
 import org.koin.dsl.module
 
 val viewModelModule = module {
@@ -20,7 +21,7 @@ class WeatherViewModel(
     }
 
     var weather = location.switchMap { location ->
-        liveData {
+        liveData(Dispatchers.IO) {
             emit(Resource.loading(null))
             emit(weatherRepo.getWeather(location))
         }
